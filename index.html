@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Shopping Cart Vue 3</title>
+    </head>
+    <body>
+        <div class="card">
+            <div class="total">Totale: € <strong>{{ totalprice }}</strong></div>
+            <div class="background">
+                <img :src="'img/' + active + '.png'">
+            </div>
+
+            <div class="wrapper">
+                <h1 class="title">{{ fullname }}</h1>
+                <span class="price">€ {{ fullprice.toFixed(2) }}</span>
+
+                <h3>Colore:</h3>
+                <div class="colors">
+                    <span class="color" v-for="(color, index) in product.colors" :style="{ 'background-color': color }" :class="color == active ? 'selected' : ''" @click="changeColor(color)"></span>
+                </div>
+
+                <h3>Memoria:</h3>
+                <div class="sizes">
+                    <div v-for="option in product.options">
+                        <input type="radio" name="size" :id="option.text" :value="option.text" @click="changePrice(option.plus)">
+                        <label :for="option.text">{{ option.text }}</label>
+                    </div>
+                </div>
+
+                <div class="purchase" @click="quantity++">Aggiungi al carrello (<strong>{{ quantity }}</strong>)</div>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
