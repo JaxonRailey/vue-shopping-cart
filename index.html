@@ -5,13 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <title>Shopping Cart Vue 3</title>
+        <title>Vue Shopping Cart</title>
     </head>
     <body>
         <div class="card">
             <div class="total">Totale: € <strong>{{ totalprice }}</strong></div>
             <div class="background">
-                <img :src="'img/' + active + '.png'">
+                <img :src="'img/' + color + '.png'">
             </div>
 
             <div class="wrapper">
@@ -20,18 +20,18 @@
 
                 <h3>Colore:</h3>
                 <div class="colors">
-                    <span class="color" v-for="(color, index) in product.colors" :style="{ 'background-color': color }" :class="color == active ? 'selected' : ''" @click="changeColor(color)"></span>
+                    <span class="color" v-for="(c, index) in product.colors" :style="{ 'background-color': c }" :class="c === color ? 'selected' : ''" @click="changeColor(c)" :key="index"></span>
                 </div>
 
                 <h3>Memoria:</h3>
                 <div class="sizes">
-                    <div v-for="option in product.options">
-                        <input type="radio" name="size" :id="option.text" :value="option.text" @click="changePrice(option.plus)">
+                    <div v-for="(option, index) in product.options" :key="index">
+                        <input type="radio" name="size" :id="option.text" :value="option.text" @click="changeOption(index)">
                         <label :for="option.text">{{ option.text }}</label>
                     </div>
                 </div>
 
-                <div class="purchase" @click="quantity++">Aggiungi al carrello (<strong>{{ quantity }}</strong>)</div>
+                <div class="purchase" @click="addToCart">Aggiungi al carrello (<strong>{{ total }}</strong>)</div>
             </div>
         </div>
 

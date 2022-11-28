@@ -8,16 +8,16 @@ const app = createApp({
                 price: 1190,
                 options: [
                     {
-                        'text': '128 GB',
-                        'plus': 0
+                        text: '128 GB',
+                        plus: 0
                     },
                     {
-                        'text': '256 GB',
-                        'plus': 100
+                        text: '256 GB',
+                        plus: 100
                     },
                     {
-                        'text': '512 GB',
-                        'plus': 180
+                        text: '512 GB',
+                        plus: 200
                     }
                 ],
                 colors: [
@@ -28,30 +28,50 @@ const app = createApp({
                     'white'
                 ]
             },
-            active: '',
-            fullname: '',
-            fullprice: 0,
+            color: '',
+            option: 0,
+            totalprice: 0,
             total: 0,
-            quantity: 0
+            cart: []
         }
     },
     mounted() {
-        this.active    = this.product.colors[0];
-        this.fullprice = this.product.price;
-        this.fullname  = this.product.name + ' ' + this.active;
+        this.color = this.product.colors[0];
     },
     computed: {
-        totalprice() {
-            return parseFloat(this.fullprice * this.quantity).toFixed(2);
-        }
+        fullname() {
+            return this.product.name + ' ' + this.color + ' ' + this.product.options[this.option].text;
+        },
+        fullprice() {
+            return this.product.price + this.product.options[this.option].plus;
+        },
     },
     methods: {
         changeColor(color) {
-            this.active   = color;
-            this.fullname = this.product.name + ' ' + color;
+            this.color = color;
         },
-        changePrice(plus) {
-            this.fullprice = this.product.price + plus;
+        changeOption(index) {
+            this.option = index;
+        },
+        addToCart() {
+            const price = this.product.price + this.product.options[this.option].plus;
+            this.totalprice += price;
+            this.total++;
+            if (!this.cart.length || !this.cart.find(item => item.name === this.fullname)) {
+                this.cart.push({
+                    name: this.fullname,
+                    price: price,
+                    quantity: 1
+                });
+            } else {
+                this.cart = this.cart.map(item => {
+                    if (item.name === this.fullname) {
+                        item.quantity++;
+                    }
+
+                    return item;
+                });
+            }
         }
     }
 }).mount('.card');
