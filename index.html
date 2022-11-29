@@ -9,30 +9,31 @@
     </head>
     <body>
         <div class="card">
-            <div class="total">Totale: € <strong>{{ totalprice }}</strong></div>
-            <div class="background">
-                <img :src="'img/' + color + '.png'">
+            <div class="image">
+                <img :src="`img/${color}.png`">
             </div>
 
-            <div class="wrapper">
-                <h1 class="title">{{ fullname }}</h1>
-                <span class="price">€ {{ fullprice.toFixed(2) }}</span>
+            <div class="detail">
+                <h1 class="title">{{ fullName }}</h1>
+                <p class="price">€ {{ fullPrice.toFixed(2) }}</p>
 
                 <h3>Colore:</h3>
-                <div class="colors">
-                    <span class="color" v-for="(c, index) in product.colors" :style="{ 'background-color': c }" :class="c === color ? 'selected' : ''" @click="changeColor(c)" :key="index"></span>
-                </div>
+                <ul class="colors">
+                    <li class="color" v-for="(clr, index) in product.colors" :style="{ 'background-color': clr }" :class="clr === color ? 'selected' : ''" @click="changeColor(clr)" :key="index"></li>
+                </ul>
 
                 <h3>Memoria:</h3>
                 <div class="sizes">
-                    <div v-for="(option, index) in product.options" :key="index">
-                        <input type="radio" name="size" :id="option.text" :value="option.text" @click="changeOption(index)">
-                        <label :for="option.text">{{ option.text }}</label>
+                    <div v-for="(opt, index) in product.options" :key="index">
+                        <input type="radio" name="size" :id="opt.text" :value="opt.text" :checked="index === option" @click="changeOption(index)">
+                        <label :for="opt.text">{{ opt.text }}</label>
                     </div>
                 </div>
 
-                <div class="purchase" @click="addToCart">Aggiungi al carrello (<strong>{{ total }}</strong>)</div>
+                <div class="purchase" @click="addToCart">Aggiungi al carrello (<strong>{{ totalItem }}</strong>)</div>
             </div>
+
+            <span class="total">Totale: € <strong>{{ totalPrice }}</strong></span>
         </div>
 
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

@@ -24,14 +24,13 @@ const app = createApp({
                     'black',
                     'blue',
                     'green',
-                    'purple',
-                    'white'
+                    'purple'
                 ]
             },
             color: '',
             option: 0,
-            totalprice: 0,
-            total: 0,
+            totalPrice: 0,
+            totalItem: 0,
             cart: []
         }
     },
@@ -39,10 +38,10 @@ const app = createApp({
         this.color = this.product.colors[0];
     },
     computed: {
-        fullname() {
+        fullName() {
             return this.product.name + ' ' + this.color + ' ' + this.product.options[this.option].text;
         },
-        fullprice() {
+        fullPrice() {
             return this.product.price + this.product.options[this.option].plus;
         },
     },
@@ -55,8 +54,8 @@ const app = createApp({
         },
         addToCart() {
             const price = this.product.price + this.product.options[this.option].plus;
-            this.totalprice += price;
-            this.total++;
+            this.totalPrice += price;
+            this.totalItem++;
             if (!this.cart.length || !this.cart.find(item => item.name === this.fullname)) {
                 this.cart.push({
                     name: this.fullname,
