@@ -56,15 +56,15 @@ const app = createApp({
             const price = this.product.price + this.product.options[this.option].plus;
             this.totalPrice += price;
             this.totalItem++;
-            if (!this.cart.length || !this.cart.find(item => item.name === this.fullname)) {
+            if (!this.cart.length || !this.cart.find(item => item.name === this.fullName)) {
                 this.cart.push({
-                    name: this.fullname,
+                    name: this.fullName,
                     price: price,
                     quantity: 1
                 });
             } else {
                 this.cart = this.cart.map(item => {
-                    if (item.name === this.fullname) {
+                    if (item.name === this.fullName) {
                         item.quantity++;
                     }
 
