@@ -44,6 +44,7 @@ body {
     color: #FFF;
     background-image: linear-gradient(-180deg, #FD886E 0%, #FC3E65 100%);
     box-shadow: 0px 3px 13px 0px rgb(252 75 104 / 60%);
+    cursor: pointer;
 }
 
 .image {
@@ -182,4 +183,182 @@ img {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
+}
+
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    max-width: 300px;
+    width: calc(100% - 50px);
+    background-color: #FFF;
+    transition: transform 0.3s ease-out;
+    overflow: auto;
+    z-index: 1000;
+}
+
+.sidebar {
+    right: 0;
+}
+
+.sidebar.is-hidden {
+    transform: translateX(300px);
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 0;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-out;
+    opacity: 1;
+    transition-property: opacity;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.overlay.is-hidden {
+    opacity: 0;
+    z-index: -1;
+}
+
+.sidebar > div {
+    padding: 15px;
+}
+
+.sidebar > .item {
+    display: flex;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .item > div:last-child {
+    align-self: center;
+    position: relative;
+}
+
+.sidebar img {
+    height: 100%;
+    padding-left: 15px;
+    max-height: 60px;
+}
+
+.sidebar p {
+    font-size: 14px;
+    margin: 0px;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 20px;
+}
+
+.sidebar .quantity {
+    display: block;
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar .remove {
+    position: absolute;
+    left: 190px;
+    top: -4px;
+    cursor: pointer;
+    color: red;
+}
+
+.sidebar .price {
+    font-size: 12px;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.sidebar .quantity {
+    font-size: 12px;
+}
+
+.sidebar .subtotal {
+    padding: 15px 30px;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .subtotal span {
+    float: right;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+}
+
+.sidebar .button {
+    padding: 30px;
+    border: 0;
+}
+
+.sidebar .button a {
+    position: relative;
+    border: 0;
+    padding: 11px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    font-weight: 400;
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    width: 100%;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.sidebar .button a:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 200%;
+    height: 100%;
+    transform: skewX(-20deg);
+    background-image: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.sidebar .button a:hover:after {
+    animation: shine 1.6s ease;
+}
+
+.sidebar .button a:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.sidebar.empty img {
+    height: auto;
+    max-height: none;
+}
+
+.sidebar.empty p {
+    align-self: baseline;
+    font-weight: 300;
+    letter-spacing: 1px;
 }

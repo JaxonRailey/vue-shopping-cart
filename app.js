@@ -29,9 +29,8 @@ const app = createApp({
             },
             color: '',
             option: 0,
-            totalPrice: 0,
-            totalItem: 0,
-            cart: []
+            showCart: false,
+            cart: JSON.parse(localStorage.getItem('cart')) || []
         }
     },
     mounted() {
@@ -44,6 +43,12 @@ const app = createApp({
         fullPrice() {
             return this.product.price + this.product.options[this.option].plus;
         },
+        totalPrice() {
+            return this.cart.reduce((sum, item) => (sum + item.price * item.quantity), 0);
+        },
+        totalItem() {
+            return this.cart.reduce((sum, item) => (sum + item.quantity), 0);
+        },
     },
     methods: {
         changeColor(color) {
@@ -53,13 +58,16 @@ const app = createApp({
             this.option = index;
         },
         addToCart() {
-            const price = this.product.price + this.product.options[this.option].plus;
-            this.totalPrice += price;
-            this.totalItem++;
+            const price  = this.product.price + this.product.options[this.option].plus;
+            const option = this.product.options[this.option].text;
+            const color  = this.color;
+
             if (!this.cart.length || !this.cart.find(item => item.name === this.fullName)) {
                 this.cart.push({
                     name: this.fullName,
                     price: price,
+                    option: option,
+                    color: color,
                     quantity: 1
                 });
             } else {
@@ -71,6 +79,10 @@ const app = createApp({
                     return item;
                 });
             }
+        },
+        removeToCart(index) {
+            this.cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(this.cart));
         }
     }
-}).mount('.card');
+}).mount('body');
