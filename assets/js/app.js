@@ -58,16 +58,12 @@ const app = createApp({
             this.option = index;
         },
         addToCart() {
-            const price  = this.product.price + this.product.options[this.option].plus;
-            const option = this.product.options[this.option].text;
-            const color  = this.color;
-
             if (!this.cart.length || !this.cart.find(item => item.name === this.fullName)) {
                 this.cart.push({
                     name: this.fullName,
-                    price: price,
-                    option: option,
-                    color: color,
+                    price: this.fullPrice,
+                    option: this.product.options[this.option].text,
+                    color: this.color,
                     quantity: 1
                 });
             } else {
