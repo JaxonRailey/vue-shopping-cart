@@ -10,7 +10,7 @@
     <body>
         <div class="card">
             <div class="image">
-                <img :src="`assets/img/${color}.png`" alt="{{ fullName }}">
+                <img :src="`assets/img/product/${color}.png`" alt="{{ fullName }}">
             </div>
 
             <div class="detail">
@@ -38,7 +38,7 @@
 
         <div class="sidebar" :class="{ 'is-hidden' : !showCart, 'empty': !cart.length }">
             <div class="item" v-for="(item, index) in cart">
-                <img :src="`img/${item.color}.png`" alt="{{ fullName }}">
+                <img :src="`assets/img/product/${item.color}.png`" alt="{{ fullName }}">
                 <div>
                     <p>{{ item.name }}</p>
                     <p class="quantity">{{ item.quantity }} x € {{ item.price }}</p>
@@ -46,15 +46,14 @@
                 </div>
             </div>
             <div class="subtotal" v-if="cart.length">Totale: <span>€ {{ totalPrice }}</span></div>
-            <div class="button" v-if="cart.length"><a href="http://offline.altervista.org/ecommerce/public/index.php?route=carrello/" title="Carrello">Vai al carrello</a></div>
 
             <div v-if="!cart.length">
-                <img src="cart-empty.png" alt="Carrello vuoto">
+                <img src="assets/img/cart-empty.png" alt="Carrello vuoto">
                 <p>Il carrello è vuoto</p>
             </div>
         </div>
 
-        <div class="overlay" :class="!showCart ? 'is-hidden' : ''" @click="showCart = !showCart"></div>
+        <div class="overlay" :class="{ 'is-hidden' : !showCart }" @click="showCart = !showCart"></div>
 
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="assets/js/app.js"></script>
