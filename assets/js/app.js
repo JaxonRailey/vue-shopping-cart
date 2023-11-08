@@ -75,6 +75,8 @@ const app = createApp({
                     return item;
                 });
             }
+
+            localStorage.setItem('cart', JSON.stringify(this.cart));
         },
         removeToCart(index) {
             this.cart.splice(index, 1);
